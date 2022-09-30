@@ -11,7 +11,7 @@ abstract class AbstractConfiguration implements \Countable, \IteratorAggregate, 
 {
     private array $configs;
 
-    public function __construct(array $configs = [])
+    final public function __construct(array $configs = [])
     {
         $this->configs = $this->resolve($configs);
     }
@@ -20,15 +20,6 @@ abstract class AbstractConfiguration implements \Countable, \IteratorAggregate, 
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
-
-        foreach ($resolver->getDefinedOptions() as $option) {
-            if ($resolver->hasDefault($option)) {
-                continue;
-            }
-
-            $resolver->setDefault($option, null);
-            $resolver->addAllowedTypes($option, 'null');
-        }
 
         return $resolver->resolve($options);
     }

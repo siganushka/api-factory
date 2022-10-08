@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Siganushka\ApiFactory\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Siganushka\ApiFactory\ResolverInterface;
 use Siganushka\ApiFactory\Tests\Fixtures\FooConfiguration;
-use Siganushka\ApiFactory\Tests\Fixtures\FooResolverExtension;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException;
 
@@ -24,7 +22,6 @@ class ConfigurationTest extends TestCase
         static::assertInstanceOf(\Countable::class, $configuration);
         static::assertInstanceOf(\IteratorAggregate::class, $configuration);
         static::assertInstanceOf(\ArrayAccess::class, $configuration);
-        static::assertInstanceOf(ResolverInterface::class, $configuration);
         static::assertSame(3, $configuration->count());
 
         static::assertTrue($configuration->offsetExists('foo'));
@@ -40,23 +37,6 @@ class ConfigurationTest extends TestCase
             'bar' => 123,
             'baz' => false,
         ], $configuration->toArray());
-    }
-
-    public function testResolve(): void
-    {
-        $configs = ['foo' => 'hello'];
-        $configuration = new FooConfiguration($configs);
-
-        static::assertEquals($configuration->toArray(), $configuration->resolve($configs));
-    }
-
-    public function testExtendBadMethodCallException(): void
-    {
-        $this->expectException(\BadMethodCallException::class);
-        $this->expectExceptionMessage(sprintf('The method %s::extend doesn\'t supported.', FooConfiguration::class));
-
-        $configuration = new FooConfiguration(['foo' => 'hello']);
-        $configuration->extend(new FooResolverExtension());
     }
 
     public function testInvalidOptionsException(): void

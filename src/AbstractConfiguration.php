@@ -7,26 +7,16 @@ namespace Siganushka\ApiFactory;
 use Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-abstract class AbstractConfiguration implements \Countable, \IteratorAggregate, \ArrayAccess, ResolverInterface
+abstract class AbstractConfiguration implements \Countable, \IteratorAggregate, \ArrayAccess
 {
     private array $configs;
 
     final public function __construct(array $configs = [])
     {
-        $this->configs = $this->resolve($configs);
-    }
-
-    public function resolve(array $options = []): array
-    {
         $resolver = new OptionsResolver();
-        $this->configureOptions($resolver);
+        static::configureOptions($resolver);
 
-        return $resolver->resolve($options);
-    }
-
-    public function extend(ResolverExtensionInterface $extension): void
-    {
-        throw new \BadMethodCallException(sprintf('The method %s::%s doesn\'t supported.', static::class, __FUNCTION__));
+        $this->configs = $resolver->resolve($configs);
     }
 
     #[\ReturnTypeWillChange]
@@ -79,5 +69,5 @@ abstract class AbstractConfiguration implements \Countable, \IteratorAggregate, 
         return $this->configs;
     }
 
-    abstract protected function configureOptions(OptionsResolver $resolver): void;
+    abstract public static function configureOptions(OptionsResolver $resolver): void;
 }

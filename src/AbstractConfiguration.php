@@ -7,6 +7,10 @@ namespace Siganushka\ApiFactory;
 use Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @template-implements \IteratorAggregate<string, mixed>
+ * @template-implements \ArrayAccess<string, mixed>
+ */
 abstract class AbstractConfiguration implements \Countable, \IteratorAggregate, \ArrayAccess
 {
     private array $configs;

@@ -13,16 +13,11 @@ use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 
 class ResolverTest extends TestCase
 {
-    protected ?ResolverInterface $resolver = null;
+    protected ResolverInterface $resolver;
 
     protected function setUp(): void
     {
         $this->resolver = new FooResolver();
-    }
-
-    protected function tearDown(): void
-    {
-        $this->resolver = null;
     }
 
     public function testResolve(): void

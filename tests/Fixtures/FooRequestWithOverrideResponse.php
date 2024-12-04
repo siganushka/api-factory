@@ -12,8 +12,10 @@ class FooRequestWithOverrideResponse extends FooRequest
 {
     protected function sendRequest(RequestOptions $request): ResponseInterface
     {
-        $data = ['message' => 'hello siganushka'];
-        $body = json_encode($data);
+        $body = json_encode(['message' => 'hello siganushka']);
+        if (false === $body) {
+            throw new \RuntimeException('Unable to JSON encode.');
+        }
 
         return new CachedResponse($body);
     }

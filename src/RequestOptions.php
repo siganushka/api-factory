@@ -11,7 +11,7 @@ class RequestOptions extends HttpOptions
     private ?string $method = null;
     private ?string $url = null;
 
-    public function __construct(string $method = null, string $url = null)
+    public function __construct(?string $method = null, ?string $url = null)
     {
         $this->method = $method;
         $this->url = $url;
@@ -49,6 +49,6 @@ class RequestOptions extends HttpOptions
             $this->toArray(),
         ]);
 
-        return sprintf('%s_%s', __CLASS__, md5($serialized));
+        return \sprintf('%s_%s', __CLASS__, md5($serialized));
     }
 }

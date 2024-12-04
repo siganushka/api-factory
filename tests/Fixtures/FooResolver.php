@@ -29,7 +29,8 @@ class FooResolver implements ResolverInterface
 
         $resolver
             ->define('message')
-            ->default(fn (Options $options) => sprintf('Hello %s', $options['text']))
+            /* @phpstan-ignore argument.type */
+            ->default(fn (Options $options) => \sprintf('Hello %s', $options['text']))
             ->allowedTypes('string')
         ;
     }

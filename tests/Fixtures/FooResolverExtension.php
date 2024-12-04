@@ -11,7 +11,7 @@ class FooResolverExtension implements ResolverExtensionInterface
 {
     private \DateTimeInterface $date;
 
-    public function __construct(\DateTimeInterface $date = null)
+    public function __construct(?\DateTimeInterface $date = null)
     {
         $this->date = $date ?? new \DateTime();
     }

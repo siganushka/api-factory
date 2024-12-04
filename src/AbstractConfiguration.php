@@ -29,16 +29,11 @@ abstract class AbstractConfiguration implements \Countable, \IteratorAggregate, 
         return isset($this->configs[$offset]) || \array_key_exists($offset, $this->configs);
     }
 
-    /**
-     * @param string $offset
-     *
-     * @return mixed
-     */
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         if (!$this->offsetExists($offset)) {
-            throw new UndefinedOptionsException(sprintf('The option "%s" does not exist.', $offset));
+            throw new UndefinedOptionsException(\sprintf('The option "%s" does not exist.', $offset));
         }
 
         return $this->configs[$offset];
@@ -47,13 +42,13 @@ abstract class AbstractConfiguration implements \Countable, \IteratorAggregate, 
     #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value): void
     {
-        throw new \BadMethodCallException(sprintf('The method %s::%s doesn\'t supported.', static::class, __FUNCTION__));
+        throw new \BadMethodCallException(\sprintf('The method %s::%s doesn\'t supported.', static::class, __FUNCTION__));
     }
 
     #[\ReturnTypeWillChange]
     public function offsetUnset($offset): void
     {
-        throw new \BadMethodCallException(sprintf('The method %s::%s doesn\'t supported.', static::class, __FUNCTION__));
+        throw new \BadMethodCallException(\sprintf('The method %s::%s doesn\'t supported.', static::class, __FUNCTION__));
     }
 
     #[\ReturnTypeWillChange]

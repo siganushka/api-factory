@@ -27,7 +27,7 @@ trait ResolverTrait
 
     public function extend(ResolverExtensionInterface $extension): void
     {
-        $this->extensions[\get_class($extension)] = $extension;
+        $this->extensions[$extension::class] = $extension;
     }
 
     abstract protected function configureOptions(OptionsResolver $resolver): void;

@@ -10,7 +10,7 @@ class ParseResponseException extends \RuntimeException
 {
     protected ResponseInterface $response;
 
-    public function __construct(ResponseInterface $response, string $message = '', int $code = 0, \Throwable $previous = null)
+    public function __construct(ResponseInterface $response, string $message = '', int $code = 0, ?\Throwable $previous = null)
     {
         $this->response = $response;
 

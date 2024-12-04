@@ -14,7 +14,7 @@ abstract class AbstractRequest implements RequestInterface
 
     protected HttpClientInterface $httpClient;
 
-    public function __construct(HttpClientInterface $httpClient = null)
+    public function __construct(?HttpClientInterface $httpClient = null)
     {
         $this->httpClient = $httpClient ?? HttpClient::create();
     }
@@ -28,7 +28,7 @@ abstract class AbstractRequest implements RequestInterface
     }
 
     /**
-     * @psalm-return mixed
+     * @return mixed
      */
     public function send(array $options = [])
     {
@@ -57,7 +57,7 @@ abstract class AbstractRequest implements RequestInterface
     abstract protected function configureRequest(RequestOptions $request, array $options): void;
 
     /**
-     * @psalm-return mixed
+     * @return mixed
      */
     abstract protected function parseResponse(ResponseInterface $response);
 }

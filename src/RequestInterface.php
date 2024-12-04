@@ -9,7 +9,7 @@ interface RequestInterface extends ResolverInterface
     public function build(array $options = []): RequestOptions;
 
     /**
-     * @psalm-return mixed
+     * @return mixed
      */
     public function send(array $options = []);
 }

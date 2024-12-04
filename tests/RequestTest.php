@@ -16,16 +16,11 @@ use Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException;
 
 class RequestTest extends TestCase
 {
-    protected ?FooRequest $request = null;
+    protected FooRequest $request;
 
     protected function setUp(): void
     {
         $this->request = new FooRequest();
-    }
-
-    protected function tearDown(): void
-    {
-        $this->request = null;
     }
 
     public function testResolve(): void
@@ -69,6 +64,9 @@ class RequestTest extends TestCase
     {
         $data = ['message' => 'hello world'];
         $body = json_encode($data);
+        if (false === $body) {
+            throw new \RuntimeException('Unable to JSON encode.');
+        }
 
         $mockResponse = new MockResponse($body);
         $client = new MockHttpClient($mockResponse);
@@ -81,6 +79,9 @@ class RequestTest extends TestCase
     {
         $data = ['message' => 'hello world'];
         $body = json_encode($data);
+        if (false === $body) {
+            throw new \RuntimeException('Unable to JSON encode.');
+        }
 
         $mockResponse = new MockResponse($body);
         $client = new MockHttpClient($mockResponse);
@@ -97,6 +98,9 @@ class RequestTest extends TestCase
 
         $data = ['err_code' => 65535, 'err_msg' => 'invalid argument error.'];
         $body = json_encode($data);
+        if (false === $body) {
+            throw new \RuntimeException('Unable to JSON encode.');
+        }
 
         $mockResponse = new MockResponse($body);
         $client = new MockHttpClient($mockResponse);

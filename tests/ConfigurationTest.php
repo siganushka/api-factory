@@ -72,7 +72,7 @@ class ConfigurationTest extends TestCase
     public function testOffsetSetBadMethodCallException(): void
     {
         $this->expectException(\BadMethodCallException::class);
-        $this->expectExceptionMessage(sprintf('The method %s::offsetSet doesn\'t supported', FooConfiguration::class));
+        $this->expectExceptionMessage(\sprintf('The method %s::offsetSet doesn\'t supported', FooConfiguration::class));
 
         $options = [
             'foo' => 'hello',
@@ -86,7 +86,7 @@ class ConfigurationTest extends TestCase
     public function testOffsetUnsetBadMethodCallException(): void
     {
         $this->expectException(\BadMethodCallException::class);
-        $this->expectExceptionMessage(sprintf('The method %s::offsetUnset doesn\'t supported', FooConfiguration::class));
+        $this->expectExceptionMessage(\sprintf('The method %s::offsetUnset doesn\'t supported', FooConfiguration::class));
 
         $options = [
             'foo' => 'hello',

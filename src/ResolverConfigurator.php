@@ -15,10 +15,10 @@ class ResolverConfigurator implements ResolverConfiguratorInterface
     {
         foreach ($extensions as $extension) {
             if (!$extension instanceof ResolverExtensionInterface) {
-                throw new \UnexpectedValueException(sprintf('Expected argument of type "%s", "%s" given', ResolverExtensionInterface::class, get_debug_type($extension)));
+                throw new \UnexpectedValueException(\sprintf('Expected argument of type "%s", "%s" given', ResolverExtensionInterface::class, get_debug_type($extension)));
             }
 
-            $this->extensions[\get_class($extension)] = $extension;
+            $this->extensions[$extension::class] = $extension;
         }
     }
 

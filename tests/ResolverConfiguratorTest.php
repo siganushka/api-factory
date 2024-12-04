@@ -31,7 +31,7 @@ class ResolverConfiguratorTest extends TestCase
     public function testUnexpectedValueException(): void
     {
         $this->expectException(\UnexpectedValueException::class);
-        $this->expectExceptionMessage(sprintf('Expected argument of type "%s", "%s" given', ResolverExtensionInterface::class, \stdClass::class));
+        $this->expectExceptionMessage(\sprintf('Expected argument of type "%s", "%s" given', ResolverExtensionInterface::class, \stdClass::class));
 
         $extensions = [
             new \stdClass(),

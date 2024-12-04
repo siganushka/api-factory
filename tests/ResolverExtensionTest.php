@@ -12,16 +12,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ResolverExtensionTest extends TestCase
 {
-    protected ?ResolverExtensionInterface $extension = null;
+    protected ResolverExtensionInterface $extension;
 
     protected function setUp(): void
     {
         $this->extension = new FooResolverExtension();
-    }
-
-    protected function tearDown(): void
-    {
-        $this->extension = null;
     }
 
     public function testConfigureOptions(): void

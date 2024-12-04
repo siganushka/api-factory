@@ -27,7 +27,9 @@ trait ResolverTrait
 
     public function extend(ResolverExtensionInterface $extension): void
     {
-        $this->extensions[$extension::class] = $extension;
+        $class = \PHP_VERSION_ID < 80000 ? $extension::class : $extension::class;
+
+        $this->extensions[$class] = $extension;
     }
 
     abstract protected function configureOptions(OptionsResolver $resolver): void;

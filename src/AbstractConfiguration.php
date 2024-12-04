@@ -29,6 +29,9 @@ abstract class AbstractConfiguration implements \Countable, \IteratorAggregate, 
         return isset($this->configs[$offset]) || \array_key_exists($offset, $this->configs);
     }
 
+    /**
+     * @return mixed
+     */
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {

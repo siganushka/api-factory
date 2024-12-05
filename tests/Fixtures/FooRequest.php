@@ -10,6 +10,9 @@ use Siganushka\ApiFactory\RequestOptions;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
+/**
+ * @extends AbstractRequest<array>
+ */
 class FooRequest extends AbstractRequest
 {
     protected function configureOptions(OptionsResolver $resolver): void
@@ -54,8 +57,8 @@ class FooRequest extends AbstractRequest
     {
         $result = $response->toArray();
 
-        $errCode = (int) ($result['err_code'] ?? 0);
-        $errMsg = (string) ($result['err_msg'] ?? '');
+        $errCode = $result['err_code'] ?? 0;
+        $errMsg = $result['err_msg'] ?? '';
 
         if (0 === $errCode) {
             return $result;

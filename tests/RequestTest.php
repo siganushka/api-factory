@@ -64,9 +64,6 @@ class RequestTest extends TestCase
     {
         $data = ['message' => 'hello world'];
         $body = json_encode($data);
-        if (false === $body) {
-            throw new \RuntimeException('Unable to JSON encode.');
-        }
 
         $mockResponse = new MockResponse($body);
         $client = new MockHttpClient($mockResponse);
@@ -79,9 +76,6 @@ class RequestTest extends TestCase
     {
         $data = ['message' => 'hello world'];
         $body = json_encode($data);
-        if (false === $body) {
-            throw new \RuntimeException('Unable to JSON encode.');
-        }
 
         $mockResponse = new MockResponse($body);
         $client = new MockHttpClient($mockResponse);
@@ -98,9 +92,6 @@ class RequestTest extends TestCase
 
         $data = ['err_code' => 65535, 'err_msg' => 'invalid argument error.'];
         $body = json_encode($data);
-        if (false === $body) {
-            throw new \RuntimeException('Unable to JSON encode.');
-        }
 
         $mockResponse = new MockResponse($body);
         $client = new MockHttpClient($mockResponse);

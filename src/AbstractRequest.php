@@ -8,6 +8,10 @@ use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
+/**
+ * @template TResponseData
+ * @implements RequestInterface<TResponseData>
+ */
 abstract class AbstractRequest implements RequestInterface
 {
     use ResolverTrait;
@@ -28,7 +32,7 @@ abstract class AbstractRequest implements RequestInterface
     }
 
     /**
-     * @return mixed
+     * @return TResponseData
      */
     public function send(array $options = [])
     {
@@ -57,7 +61,7 @@ abstract class AbstractRequest implements RequestInterface
     abstract protected function configureRequest(RequestOptions $request, array $options): void;
 
     /**
-     * @return mixed
+     * @return TResponseData
      */
     abstract protected function parseResponse(ResponseInterface $response);
 }

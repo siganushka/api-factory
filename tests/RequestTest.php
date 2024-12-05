@@ -63,6 +63,7 @@ class RequestTest extends TestCase
     public function testSend(): void
     {
         $data = ['message' => 'hello world'];
+        /** @var string */
         $body = json_encode($data);
 
         $mockResponse = new MockResponse($body);
@@ -75,6 +76,7 @@ class RequestTest extends TestCase
     public function testSendWithOverrideResponse(): void
     {
         $data = ['message' => 'hello world'];
+        /** @var string */
         $body = json_encode($data);
 
         $mockResponse = new MockResponse($body);
@@ -91,6 +93,7 @@ class RequestTest extends TestCase
         $this->expectExceptionMessage('invalid argument error');
 
         $data = ['err_code' => 65535, 'err_msg' => 'invalid argument error.'];
+        /** @var string */
         $body = json_encode($data);
 
         $mockResponse = new MockResponse($body);

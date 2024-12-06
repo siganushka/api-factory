@@ -28,7 +28,7 @@ class StaticResponse implements ResponseInterface
     public static function createFromArray(array $data, array $headers = []): self
     {
         $body = json_encode($data, \JSON_UNESCAPED_UNICODE);
-        if (false === $body) {
+        if (!\is_string($body)) {
             throw new \RuntimeException('Unable to JSON encode.');
         }
 
@@ -54,7 +54,7 @@ class StaticResponse implements ResponseInterface
     {
         $data = json_decode($this->body, true);
         if (!\is_array($data)) {
-            throw new \RuntimeException('Unable to JSON decode array.');
+            throw new \RuntimeException('Unable to JSON decode.');
         }
 
         return $data;

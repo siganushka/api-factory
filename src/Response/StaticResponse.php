@@ -17,18 +17,10 @@ class StaticResponse implements ResponseInterface
         $this->headers = $headers;
     }
 
-    /**
-     * @deprecated use createFromArray instead
-     */
-    public static function createFromJson(array $data): self
-    {
-        return static::createFromArray($data);
-    }
-
     public static function createFromArray(array $data, array $headers = []): self
     {
         $body = json_encode($data, \JSON_UNESCAPED_UNICODE);
-        if (!\is_string($body)) {
+        if (false === $body) {
             throw new \RuntimeException('Unable to JSON encode.');
         }
 

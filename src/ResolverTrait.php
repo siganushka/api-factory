@@ -25,9 +25,11 @@ trait ResolverTrait
         return $resolver->resolve($options);
     }
 
-    public function extend(ResolverExtensionInterface $extension): void
+    public function extend(ResolverExtensionInterface $extension): static
     {
         $this->extensions[\get_class($extension)] = $extension;
+
+        return $this;
     }
 
     abstract protected function configureOptions(OptionsResolver $resolver): void;

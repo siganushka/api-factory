@@ -5,7 +5,7 @@ An API Factory Abstraction Layer.
 ### Installation
 
 ```bash
-$ composer require siganushka/api-factory dev-main
+$ composer require siganushka/api-factory
 ```
 
 ### Usage

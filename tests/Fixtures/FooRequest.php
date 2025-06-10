@@ -47,7 +47,6 @@ class FooRequest extends AbstractRequest
         }
 
         $request
-            ->setMethod('GET')
             ->setUrl('/foo')
             ->setQuery($query)
         ;

@@ -25,7 +25,7 @@ abstract class AbstractRequest implements RequestInterface
 
     public function build(array $options = []): RequestOptions
     {
-        $request = new RequestOptions();
+        $request = new RequestOptions('GET');
         $this->configureRequest($request, $this->resolve($options));
 
         return $request;

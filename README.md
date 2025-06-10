@@ -23,9 +23,9 @@ AbstractRequest::configureRequest(RequestOptions $request, array $options): void
 AbstractRequest::parseResponse(ResponseInterface $response): mixed;
 ```
 
-Github get a user example:
+### Example:
 
-https://docs.github.com/cn/rest/users/users#get-a-user
+Github get a user: https://docs.github.com/cn/rest/users/users#get-a-user
 
 ```php
 namespace App\Request;
@@ -42,8 +42,11 @@ class GithubUsers extends AbstractRequest
 {
     protected function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setRequired('username');
-        $resolver->setAllowedTypes('username', 'string');
+        $resolve
+            ->define('username')
+            ->required()
+            ->allowedTypes('string')
+        ;
     }
 
     protected function configureRequest(RequestOptions $request, array $options): void

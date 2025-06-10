@@ -59,6 +59,26 @@ class GithubUsers extends AbstractRequest
         return $response->toArray();
     }
 }
+
+$request = new GithubUsers();
+
+$result = $request->send();
+// throws MissingOptionsException: The required options "username" are missing.
+
+$result = $request->send(['username' => 'siganushka']);
+// {
+//  "login": "siganushka",
+//  "id": 45844370,
+//  "node_id": "MDQ6VXNlcjQ1ODQ0Mzcw",
+//  "avatar_url": "https://avatars.githubusercontent.com/u/45844370?v=4",
+//  "gravatar_id": "",
+//  "url": "https://api.github.com/users/siganushka",
+//  "html_url": "https://github.com/siganushka",
+//  "followers_url": "https://api.github.com/users/siganushka/followers",
+//  "following_url": "https://api.github.com/users/siganushka/following{/other_user}",
+//  "gists_url": "https://api.github.com/users/siganushka/gists{/gist_id}",
+//  ...
+// }
 ```
 
 ### Implementation

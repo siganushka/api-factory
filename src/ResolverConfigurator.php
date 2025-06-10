@@ -18,7 +18,7 @@ class ResolverConfigurator implements ResolverConfiguratorInterface
                 throw new \UnexpectedValueException(\sprintf('Expected argument of type "%s", "%s" given', ResolverExtensionInterface::class, get_debug_type($extension)));
             }
 
-            $this->extensions[\get_class($extension)] = $extension;
+            $this->extensions[$extension::class] = $extension;
         }
     }
 

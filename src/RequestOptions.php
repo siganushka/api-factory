@@ -8,13 +8,8 @@ use Symfony\Component\HttpClient\HttpOptions;
 
 class RequestOptions extends HttpOptions
 {
-    private ?string $method = null;
-    private ?string $url = null;
-
-    public function __construct(?string $method = null, ?string $url = null)
+    public function __construct(private ?string $method = null, private ?string $url = null)
     {
-        $this->method = $method;
-        $this->url = $url;
     }
 
     public function getMethod(): ?string

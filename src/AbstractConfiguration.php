@@ -13,7 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 abstract class AbstractConfiguration implements \Countable, \IteratorAggregate, \ArrayAccess
 {
-    private array $configs;
+    private readonly array $configs;
 
     final public function __construct(array $configs = [])
     {
@@ -29,11 +29,8 @@ abstract class AbstractConfiguration implements \Countable, \IteratorAggregate, 
         return isset($this->configs[$offset]) || \array_key_exists($offset, $this->configs);
     }
 
-    /**
-     * @return mixed
-     */
     #[\ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         if (!$this->offsetExists($offset)) {
             throw new UndefinedOptionsException(\sprintf('The option "%s" does not exist.', $offset));

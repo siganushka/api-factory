@@ -8,12 +8,8 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class ParseResponseException extends \RuntimeException
 {
-    protected ResponseInterface $response;
-
-    public function __construct(ResponseInterface $response, string $message = '', int $code = 0, ?\Throwable $previous = null)
+    public function __construct(protected readonly ResponseInterface $response, string $message = '', int $code = 0, ?\Throwable $previous = null)
     {
-        $this->response = $response;
-
         parent::__construct($message, $code, $previous);
     }
 

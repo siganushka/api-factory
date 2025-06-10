@@ -25,6 +25,8 @@ class RequestOptionsTest extends TestCase
         static::assertSame('http://localhost', $requestOptions->getUrl());
 
         $requestOptions->setQuery(['foo' => 'bar']);
-        static::assertEquals(['query' => ['foo' => 'bar']], $requestOptions->toArray());
+        static::assertSame(['query' => ['foo' => 'bar']], $requestOptions->toArray());
+
+        static::assertSame('Siganushka\ApiFactory\RequestOptions_f5a27d259b58ace61cfb4c91429443a0', $requestOptions->__toString());
     }
 }

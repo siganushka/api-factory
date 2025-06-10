@@ -8,21 +8,13 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class StaticResponse implements ResponseInterface
 {
-    private string $body;
-    private array $headers;
-
-    final public function __construct(string $body, array $headers = [])
+    final public function __construct(private readonly string $body, private readonly array $headers = [])
     {
-        $this->body = $body;
-        $this->headers = $headers;
     }
 
     public static function createFromArray(array $data, array $headers = []): self
     {
-        $body = json_encode($data, \JSON_UNESCAPED_UNICODE);
-        if (false === $body) {
-            throw new \RuntimeException('Unable to JSON encode.');
-        }
+        $body = json_encode($data, \JSON_UNESCAPED_UNICODE | \JSON_THROW_ON_ERROR);
 
         return new static($body, $headers);
     }

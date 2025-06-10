@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FooResolverExtension implements ResolverExtensionInterface
 {
-    private \DateTimeInterface $date;
+    private readonly \DateTimeInterface $date;
 
     public function __construct(?\DateTimeInterface $date = null)
     {

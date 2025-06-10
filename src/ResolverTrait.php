@@ -30,7 +30,7 @@ trait ResolverTrait
      */
     public function extend(ResolverExtensionInterface $extension)
     {
-        $this->extensions[\get_class($extension)] = $extension;
+        $this->extensions[$extension::class] = $extension;
 
         return $this;
     }

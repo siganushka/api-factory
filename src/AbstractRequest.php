@@ -16,7 +16,7 @@ abstract class AbstractRequest implements RequestInterface
 {
     use ResolverTrait;
 
-    protected HttpClientInterface $httpClient;
+    protected readonly HttpClientInterface $httpClient;
 
     public function __construct(?HttpClientInterface $httpClient = null)
     {

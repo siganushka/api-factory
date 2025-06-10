@@ -35,9 +35,12 @@ use Siganushka\ApiFactory\RequestOptions;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
+/**
+ * @extends AbstractRequest<array>
+ */
 class GithubUsers extends AbstractRequest
 {
-    public function configureOptions(OptionsResolver $resolver): void
+    protected function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired('username');
         $resolver->setAllowedTypes('username', 'string');

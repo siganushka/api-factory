@@ -6,7 +6,7 @@ namespace Siganushka\ApiFactory;
 
 use Symfony\Component\HttpClient\HttpOptions;
 
-class RequestOptions extends HttpOptions
+class RequestOptions extends HttpOptions implements \Stringable
 {
     public function __construct(private ?string $method = null, private ?string $url = null)
     {

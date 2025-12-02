@@ -8,3 +8,4 @@ parameters:
     ignoreErrors:
         - '#no value type specified in iterable type array#'
         - '#no value type specified in iterable type iterable#'
+        - { message: '#Parameter \#1 \$offset of method#', path: tests/ConfigurationTest.php }

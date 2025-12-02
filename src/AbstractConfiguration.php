@@ -8,11 +8,16 @@ use Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * @template-implements \IteratorAggregate<string, mixed>
- * @template-implements \ArrayAccess<string, mixed>
+ * @template TConfigs of array<string, mixed>
+ *
+ * @implements \IteratorAggregate<key-of<TConfigs>, value-of<TConfigs>>
+ * @implements \ArrayAccess<key-of<TConfigs>, value-of<TConfigs>>
  */
 abstract class AbstractConfiguration implements \Countable, \IteratorAggregate, \ArrayAccess
 {
+    /**
+     * @var TConfigs
+     */
     private readonly array $configs;
 
     final public function __construct(array $configs = [])
@@ -20,7 +25,10 @@ abstract class AbstractConfiguration implements \Countable, \IteratorAggregate, 
         $resolver = new OptionsResolver();
         static::configureOptions($resolver);
 
-        $this->configs = $resolver->resolve($configs);
+        /** @var TConfigs */
+        $resolved = $resolver->resolve($configs);
+
+        $this->configs = $resolved;
     }
 
     #[\ReturnTypeWillChange]
@@ -63,6 +71,9 @@ abstract class AbstractConfiguration implements \Countable, \IteratorAggregate, 
         return \count($this->configs);
     }
 
+    /**
+     * @return TConfigs
+     */
     public function toArray(): array
     {
         return $this->configs;

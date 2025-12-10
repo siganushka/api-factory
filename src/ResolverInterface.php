@@ -8,8 +8,5 @@ interface ResolverInterface
 {
     public function resolve(array $options = []): array;
 
-    /**
-     * @return static
-     */
-    public function extend(ResolverExtensionInterface $extension);
+    public function extend(ResolverExtensionInterface $extension): static;
 }

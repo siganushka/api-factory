@@ -34,7 +34,7 @@ abstract class AbstractRequest implements RequestInterface
     /**
      * @return TResponseData
      */
-    public function send(array $options = [])
+    public function send(array $options = []): mixed
     {
         $request = $this->build($options);
         $response = $this->sendRequest($request);

@@ -25,10 +25,7 @@ trait ResolverTrait
         return $resolver->resolve($options);
     }
 
-    /**
-     * @return static
-     */
-    public function extend(ResolverExtensionInterface $extension)
+    public function extend(ResolverExtensionInterface $extension): static
     {
         $this->extensions[$extension::class] = $extension;
 

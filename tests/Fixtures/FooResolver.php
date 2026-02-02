@@ -30,7 +30,7 @@ class FooResolver implements ResolverInterface
         $resolver
             ->define('message')
             /* @phpstan-ignore argument.type */
-            ->default(fn (Options $options) => \sprintf('Hello %s', $options['text']))
+            ->default(static fn (Options $options) => \sprintf('Hello %s', $options['text']))
             ->allowedTypes('string')
         ;
     }

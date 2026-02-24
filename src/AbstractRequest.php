@@ -44,14 +44,11 @@ abstract class AbstractRequest implements RequestInterface
 
     protected function sendRequest(RequestOptions $request): ResponseInterface
     {
-        $method = $request->getMethod();
-        $url = $request->getUrl();
-
-        if (null === $method) {
+        if (!$method = $request->getMethod()) {
             throw new \RuntimeException('The request "method" option must be set.');
         }
 
-        if (null === $url) {
+        if (!$url = $request->getUrl()) {
             throw new \RuntimeException('The request "url" option must be set.');
         }
 

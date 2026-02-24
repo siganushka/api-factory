@@ -13,8 +13,8 @@ class ParseResponseExceptionTest extends TestCase
 {
     public function testAll(): void
     {
-        $mockResponse = new MockResponse('test');
-        $client = new MockHttpClient($mockResponse);
+        $response = new MockResponse('test');
+        $client = new MockHttpClient($response);
 
         $response = $client->request('GET', '/');
 

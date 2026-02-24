@@ -20,7 +20,13 @@ class RequestTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->request = new FooRequest();
+        $data = ['message' => 'hello world'];
+        $body = json_encode($data, \JSON_THROW_ON_ERROR);
+
+        $response = new MockResponse($body);
+        $client = new MockHttpClient($response);
+
+        $this->request = new FooRequest($client);
     }
 
     public function testResolve(): void
@@ -42,7 +48,7 @@ class RequestTest extends TestCase
         $requestOptions = $this->request->build(['a' => 'hello']);
 
         static::assertSame('GET', $requestOptions->getMethod());
-        static::assertSame('/foo', $requestOptions->getUrl());
+        static::assertSame('http://localhost/foo', $requestOptions->getUrl());
         static::assertEquals([
             'query' => [
                 'options_a' => 'hello',
@@ -62,26 +68,13 @@ class RequestTest extends TestCase
 
     public function testSend(): void
     {
-        $data = ['message' => 'hello world'];
-        $body = json_encode($data, \JSON_THROW_ON_ERROR);
-
-        $mockResponse = new MockResponse($body);
-        $client = new MockHttpClient($mockResponse);
-
-        $result = (new FooRequest($client))->send(['a' => 'hello']);
-        static::assertSame($data, $result);
+        static::assertSame(['message' => 'hello world'], $this->request->send(['a' => 'hello']));
     }
 
     public function testSendWithOverrideResponse(): void
     {
-        $data = ['message' => 'hello world'];
-        $body = json_encode($data, \JSON_THROW_ON_ERROR);
-
-        $mockResponse = new MockResponse($body);
-        $client = new MockHttpClient($mockResponse);
-
-        $result = (new FooRequestWithOverrideResponse($client))->send(['a' => 'hello']);
-        static::assertEquals(['message' => 'hello siganushka'], $result);
+        $request = new FooRequestWithOverrideResponse();
+        static::assertEquals(['message' => 'hello siganushka'], $request->send(['a' => 'hello']));
     }
 
     public function testSendWithParseResponseException(): void
@@ -93,8 +86,8 @@ class RequestTest extends TestCase
         $data = ['err_code' => 65535, 'err_msg' => 'invalid argument error.'];
         $body = json_encode($data, \JSON_THROW_ON_ERROR);
 
-        $mockResponse = new MockResponse($body);
-        $client = new MockHttpClient($mockResponse);
+        $response = new MockResponse($body);
+        $client = new MockHttpClient($response);
 
         (new FooRequest($client))->send(['a' => 'hello']);
     }

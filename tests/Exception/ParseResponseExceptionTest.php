@@ -19,7 +19,7 @@ class ParseResponseExceptionTest extends TestCase
         $response = $client->request('GET', '/');
 
         $previous = new \InvalidArgumentException('foo');
-        $exception = new ParseResponseException($response, 'bar', 1024, $previous);
+        $exception = new ParseResponseException($response, 'bar', 1024, $previous, ['msg' => 'hello']);
 
         static::assertInstanceOf(\Throwable::class, $exception);
         static::assertSame($response, $exception->getResponse());
@@ -27,5 +27,6 @@ class ParseResponseExceptionTest extends TestCase
         static::assertSame($previous, $exception->getPrevious());
         static::assertSame('bar', $exception->getMessage());
         static::assertSame(1024, $exception->getCode());
+        static::assertSame(['msg' => 'hello'], $exception->getResponseData());
     }
 }

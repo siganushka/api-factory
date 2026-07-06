@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace Siganushka\ApiFactory\Response;
 
+use Symfony\Component\HttpClient\Exception\JsonException;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class StaticResponse implements ResponseInterface
 {
-    final public function __construct(private readonly string $body, private readonly array $headers = [])
+    final public function __construct(
+        private readonly string $body,
+        private readonly array $headers = [],
+        private readonly int $status = 200)
     {
     }
 
@@ -21,7 +25,7 @@ class StaticResponse implements ResponseInterface
 
     public function getStatusCode(): int
     {
-        return 200;
+        return $this->status;
     }
 
     public function getHeaders(bool $throw = true): array
@@ -36,9 +40,14 @@ class StaticResponse implements ResponseInterface
 
     public function toArray(bool $throw = true): array
     {
-        $data = json_decode($this->body, true);
+        try {
+            $data = json_decode($this->body, true, flags: \JSON_THROW_ON_ERROR);
+        } catch (\JsonException $th) {
+            throw new JsonException($th->getMessage(), previous: $th);
+        }
+
         if (!\is_array($data)) {
-            throw new \RuntimeException('Unable to JSON decode.');
+            throw new JsonException(\sprintf('JSON content was expected to decode to an array, "%s" returned.', get_debug_type($data)));
         }
 
         return $data;

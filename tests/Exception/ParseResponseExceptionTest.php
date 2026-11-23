@@ -29,4 +29,14 @@ class ParseResponseExceptionTest extends TestCase
         static::assertSame(1024, $exception->getCode());
         static::assertSame(['msg' => 'hello'], $exception->getResponseData());
     }
+
+    public function testDefaults(): void
+    {
+        $exception = new ParseResponseException(new MockResponse('test'));
+
+        static::assertSame('', $exception->getMessage());
+        static::assertSame(0, $exception->getCode());
+        static::assertNull($exception->getPrevious());
+        static::assertNull($exception->getResponseData());
+    }
 }

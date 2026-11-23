@@ -30,6 +30,25 @@ class StaticResponseTest extends TestCase
         static::assertSame([], $response->getInfo());
     }
 
+    public function testCreateFromArray(): void
+    {
+        $response = StaticResponse::createFromArray(['message' => '你好'], ['X-Foo' => 'bar']);
+
+        static::assertSame('{"message":"你好"}', $response->getContent());
+        static::assertSame(['message' => '你好'], $response->toArray());
+        static::assertSame(['X-Foo' => 'bar'], $response->getHeaders());
+    }
+
+    public function testCancelAndGetInfo(): void
+    {
+        $response = new StaticResponse('{}');
+
+        $response->cancel();
+
+        static::assertSame([], $response->getInfo());
+        static::assertSame([], $response->getInfo('http_code'));
+    }
+
     public function testInvalidBodyException(): void
     {
         $this->expectException(JsonException::class);

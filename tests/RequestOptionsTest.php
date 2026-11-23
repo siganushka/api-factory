@@ -10,6 +10,14 @@ use Symfony\Component\HttpClient\HttpOptions;
 
 class RequestOptionsTest extends TestCase
 {
+    public function testConstructor(): void
+    {
+        $requestOptions = new RequestOptions('POST', 'http://localhost');
+
+        static::assertSame('POST', $requestOptions->getMethod());
+        static::assertSame('http://localhost', $requestOptions->getUrl());
+    }
+
     public function testAll(): void
     {
         $requestOptions = new RequestOptions();

@@ -6,6 +6,7 @@ namespace Siganushka\ApiFactory\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Siganushka\ApiFactory\Exception\ParseResponseException;
+use Siganushka\ApiFactory\RequestOptions;
 use Siganushka\ApiFactory\Tests\Fixtures\FooRequest;
 use Siganushka\ApiFactory\Tests\Fixtures\FooRequestWithOverrideResponse;
 use Symfony\Component\HttpClient\MockHttpClient;
@@ -92,6 +93,30 @@ class RequestTest extends TestCase
         (new FooRequest($client))->send(['a' => 'hello']);
     }
 
+    public function testDefaultHttpClient(): void
+    {
+        $requestOptions = (new FooRequest())->build(['a' => 'hello']);
+
+        static::assertSame('GET', $requestOptions->getMethod());
+        static::assertSame('http://localhost/foo', $requestOptions->getUrl());
+    }
+
+    public function testSendRequestWithoutMethodException(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('The request "method" option must be set.');
+
+        $this->invokeSendRequest(new RequestOptions());
+    }
+
+    public function testSendRequestWithoutUrlException(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('The request "url" option must be set.');
+
+        $this->invokeSendRequest(new RequestOptions('GET'));
+    }
+
     public function testMissingOptionsException(): void
     {
         $this->expectException(MissingOptionsException::class);
@@ -114,5 +139,11 @@ class RequestTest extends TestCase
         $this->expectExceptionMessage('The option "d" does not exist. Defined options are: "a", "b", "c"');
 
         $this->request->build(['d' => 'xyz']);
+    }
+
+    private function invokeSendRequest(RequestOptions $requestOptions): void
+    {
+        $method = new \ReflectionMethod(FooRequest::class, 'sendRequest');
+        $method->invoke(new FooRequest(new MockHttpClient()), $requestOptions);
     }
 }

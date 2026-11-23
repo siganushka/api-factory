@@ -39,6 +39,17 @@ class ConfigurationTest extends TestCase
         ], $configuration->toArray());
     }
 
+    public function testIterator(): void
+    {
+        $configuration = new FooConfiguration(['foo' => 'hello', 'baz' => false]);
+
+        static::assertEquals([
+            'foo' => 'hello',
+            'bar' => 123,
+            'baz' => false,
+        ], iterator_to_array($configuration));
+    }
+
     public function testInvalidOptionsException(): void
     {
         $this->expectException(InvalidOptionsException::class);

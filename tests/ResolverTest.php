@@ -49,6 +49,19 @@ class ResolverTest extends TestCase
         ], $this->resolver->resolve());
     }
 
+    public function testExtendOnCloneDoesNotAffectOriginal(): void
+    {
+        $originalDate = new \DateTime('1970-01-01 00:00:00');
+        $overriddenDate = new \DateTime('2000-01-01 00:00:00');
+
+        $this->resolver->extend(new FooResolverExtension($originalDate));
+
+        $clone = (clone $this->resolver)->extend(new FooResolverExtension($overriddenDate));
+
+        static::assertSame($overriddenDate, $clone->resolve()['date']);
+        static::assertSame($originalDate, $this->resolver->resolve()['date']);
+    }
+
     public function testDateMissingOptionsException(): void
     {
         $this->expectException(MissingOptionsException::class);
